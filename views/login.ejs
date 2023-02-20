@@ -1,0 +1,54 @@
+<%- include('partials/navheader')  %> 
+<%- include('partials/navbody')  %> 
+<form class="auth" id="form1">
+    <%# ------------------------------------ EMAIL --------------------------------------------------- %> 
+    <h2 class="h2">Login</h2>         
+    <label for="email" class="label">Email</label>
+    <input type="text" name="email" class="input">
+    <div class="email error" id="err1"></div>
+    <%# ------------------------------------ PASSWORD --------------------------------------------------- %> 
+    <label for="password" class="label">Password</label>
+    <input type="password" name="password" class="input">
+    <div class="password error" id="err2"></div>
+    <%# ------------------------------------ LOGIN BUTTON --------------------------------------------------- %> 
+            <button class="button">Login</button>
+            <div class="email error"></div>
+            <div>
+                <h6> Don't have Account ? <a href="/signup">Signup</a></h6>
+            </div>
+    </form>
+    <%- include('partials/navFooter')  %> 
+<script>
+    const form = document.getElementById('form1');
+    const emailError = document.getElementById('err1');
+    const passwordError = document.getElementById('err2');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+          // reset errors
+        emailError.textContent = '';
+        passwordError.textContent = '';
+          // get values
+        const email = form.email.value;
+        const password = form.password.value;
+        try {
+            const res = await fetch('/login', { 
+                method: 'POST', 
+                body: JSON.stringify({email, password }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            if (data.errors) {
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+                location.assign('/');
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+      
+      })
+      </script>
+      

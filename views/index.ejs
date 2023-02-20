@@ -1,0 +1,10 @@
+<%- include('partials/navheader')  %> 
+<%- include('partials/navbody')  %> 
+<h1>Main Page</h1>
+<h6> <% if(user) { %> 
+    Welcome , <%= user.username %> 
+    <% } else { %>
+        Welcome
+    <% } %>
+</h6>
+<%- include('partials/navFooter')  %> 
