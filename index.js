@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 const {isAuth,checkUser} = require('./middelware/authProtect')
 const authRoute = require('./routes/authRouter')
+const profileRoute = require('./routes/profileRouter')
 
 const app = express()
 
@@ -34,6 +35,7 @@ app.get('/test',isAuth,(req,res,_next)=>{
     })
 })
 app.use(authRoute)
+app.use('/profile',profileRoute)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {

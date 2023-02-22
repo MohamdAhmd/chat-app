@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+mongoose.set("strictQuery", false);
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
 const config = require('../config')
+const DB_URL = config.DB_URL
+
 const userSchema = mongoose.Schema({
     username: {
         type:String,
@@ -44,5 +47,14 @@ userSchema.pre('save', async function(next) {
 
 
 const User = mongoose.model("user", userSchema);
-module.exports = User
+exports.User = User
 
+
+exports.profile = async (id)=>{
+    try {
+        const user = await User.findById(id)
+        return user
+    } catch (err) {
+        console.log(err);
+    }
+}

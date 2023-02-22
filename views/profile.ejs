@@ -1,0 +1,33 @@
+<%- include('partials/navheader')  %> 
+<%- include('partials/navbody')  %> 
+<h1>Profile Page</h1>
+<h6> <% if(user) { %> 
+    Welcome , <%= user.username %> 
+    <% } else { %>
+        Profile Page
+    <% } %>
+</h6>
+<div class="container">
+    <div class="row">
+        <div class="col col-12 col-md-4">
+            <img src="/<%= userImage%>">
+        </div>
+        <div class="col col-12 col-md-6">
+            <h3><%= username%></h3>
+            <% if (!isOwner) { %>
+                    <% if(isFriend) { %>
+                        We are firends
+                    <% } else if (addFriend) { %>
+                        I sent friend request
+                    <% } else if (friendRequest) { %>
+                        someone sent to me friend request
+                    <% } else { %>
+                        We Are Not Friends - Add 
+                    <% } %>
+                <% } %>
+        </div>
+    </div>
+</div>
+<%- include('partials/navFooter')  %> 
+</body>
+</html>

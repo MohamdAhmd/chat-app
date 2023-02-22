@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Test">Test</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
                 <% } else {%>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
@@ -22,9 +25,11 @@
                     </li>
                 <% } %>
             </ul>
+        <% if(isAuth) {%>
         </div>
             <form action="/logout" method="POST">
                 <input type="submit" value="Logout" class="btn btn-danger">
             </form>
         </div>
+        <% } %>
     </nav>

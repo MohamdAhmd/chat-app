@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const userModel = require('./userModel')
+const userModel = require('./userModel').User
 module.exports.login = async (email,password)=>{
     const user = await userModel.findOne({email})
     if(user){

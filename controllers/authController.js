@@ -1,4 +1,4 @@
-const userModel = require('../models/userModel')
+const userModel = require('../models/userModel').User
 const authModel = require('../models/authModel')
 const JWT = require('jsonwebtoken')
 const { JWT_SECRET } = require('../config')
@@ -56,7 +56,7 @@ exports.post_signup = async (req,res,next)=>{
         res.status(404).json({errors})
     }
 }
-module.exports.get_login = (req,res,next)=>{
+exports.get_login = (req,res,next)=>{
     res.render('login',{       
     isAuth:req.cookies.jwt
     })

@@ -1,6 +1,6 @@
 const JWT = require('jsonwebtoken')
 const { JWT_SECRET } = require('../config')
-const User = require('../models/userModel')
+const User = require('../models/userModel').User
 const authModel = require('../models/authModel')
 
 exports.isAuth = async (req,res,next)=>{ 
@@ -13,7 +13,7 @@ exports.isAuth = async (req,res,next)=>{
                 console.log(err.message);
                 res.redirect('/login')
             }else{
-                console.log(decodedToken);
+                //console.log(decodedToken);
                 next()
             }
         })
@@ -26,17 +26,11 @@ exports.isAuth = async (req,res,next)=>{
 exports.isNotAuth = (req,res,next)=>{ 
     const token = req.cookies.jwt
     // check if json web token exist 
-    if(token){
-        //if exist so verify token
-        JWT.verify(token,JWT_SECRET,(err,decodedToken)=>{
-            if(err){
-                next()
-            }else{
-                res.redirect('/')
-            }
-        })
-    }else{
+    if(!token){
+        //if not exist so verify token
         next()
+    }else{
+        res.redirect('/')
     } 
 }
 
