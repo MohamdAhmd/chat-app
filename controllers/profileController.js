@@ -8,11 +8,14 @@ exports.redirect = (req,res,next)=>{
 exports.getProfile = (req,res,next)=>{
     const user = res.locals.user
     const Id = user.id
-    userModel.profile(Id).then((data) => {
-        //console.log(data.friends.find(friend => friend.id === user.id));
+    userModel.profile(req.params.id).then((data) => {
         res.render('profile',{
             pageTitle:data.username,
             isAuth:req.cookies.jwt,
+            myId:user.id,
+            myName:user.username,
+            myImage:user.image,
+            friendId: data._id, 
             username:data.username,
             userImage:data.image,
             isOwner: req.params.id === user.id,

@@ -15,15 +15,24 @@
         <div class="col col-12 col-md-6">
             <h3><%= username%></h3>
             <% if (!isOwner) { %>
+                <form method="POST" id="friends-form">
+                    <input id="myId" type="hidden" name="myId" value="<%= myId%>">
+                    <input id="myName" type="hidden" name="myName" value="<%= myName%>">
+                    <input id="myImage" type="hidden" name="myImage" value="<%= myImage%>">
+                    <input id="friendId" type="hidden" name="friendId" value="<%= friendId%>">
+                    <input id="friendName" type="hidden" name="friendName" value="<%= username%>">
+                    <input id="friendImage" type="hidden" name="friendImage" value="<%= userImage%>">
                     <% if(isFriend) { %>
-                        We are firends
+                    <input type="submit" value="Delete Friend" class="btn btn-danger" formaction="/friend/delete">
                     <% } else if (addFriend) { %>
-                        I sent friend request
+                    <input type="submit" value="Cancel Request" class="btn btn-danger" formaction="/friend/cancel">
                     <% } else if (friendRequest) { %>
-                        someone sent to me friend request
+                    <input type="submit" value="Accept Friend Request" class="btn btn-success" formaction="/friend/accept">
+                    <input type="submit" value="Reject" class="btn btn-danger" formaction="/friend/reject">
                     <% } else { %>
-                        We Are Not Friends - Add 
+                    <input id="addBtn" type="submit" value="Add Friend" class="btn btn-primary" formaction="/friend/add">
                     <% } %>
+                </form>
                 <% } %>
         </div>
     </div>

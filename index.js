@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const {isAuth,checkUser} = require('./middelware/authProtect')
 const authRoute = require('./routes/authRouter')
 const profileRoute = require('./routes/profileRouter')
+const friendRoute = require('./routes/friendRoute')
 
 const app = express()
 
@@ -19,23 +20,25 @@ app.use(express.static(path.join(__dirname, 'images')))
 
 app.set('views', 'views')
 app.set('view engine', 'ejs')
-mongoose.connect(config.DB_URL).then(()=>{
-    console.log('Database connected successfully...');
-}).catch((err)=> console.log(err))
+
 
 app.use('*',checkUser)
 app.get('/',(req,res,_next)=>{ 
     res.render('index',{
         isAuth:req.cookies.jwt,
+        pageTitle:'HOME',
     })
 })
 app.get('/test',isAuth,(req,res,_next)=>{
     res.render('test',{
-        isAuth:req.cookies.jwt
+        isAuth:req.cookies.jwt,
+        pageTitle:'TEST',
+
     })
 })
 app.use(authRoute)
 app.use('/profile',profileRoute)
+app.use('/friend',friendRoute)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
